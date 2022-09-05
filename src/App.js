@@ -7,7 +7,10 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const [data, setData] = useState(null);
-  const [activeItems, setActiveItems] = useState([]);
+  const [activeItems, setActiveItems] = useState([() => {
+    const storedItems = window.localStorage.getItem("shoppingList")
+    return JSON.parse(storedItems);
+  }]);
 
   useEffect(() => {
 
@@ -22,7 +25,9 @@ function App() {
 
   }, []);
 
-
+  useEffect(() => {
+    window.localStorage.setItem("shoppingList", JSON.stringify(activeItems));
+  }, [activeItems]);
 
   if (data === null) {
     return <div>loading...</div>
