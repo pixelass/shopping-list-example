@@ -22,6 +22,8 @@ function App() {
 
   }, []);
 
+
+
   if (data === null) {
     return <div>loading...</div>
   }
@@ -37,7 +39,14 @@ function App() {
         {activeItems.map(item => {
           return (
             <li key={item._id} >
-              {item.name.de}
+              {item.name.de} <button type="button" onClick={() => {
+                // Filter the clicked item from the list
+                const nextActiveItems = activeItems.filter(activeItem => {
+                  return activeItem._id !== item._id
+                });
+                // Now update the activeItems
+                setActiveItems(nextActiveItems);
+              }}>Remove</button>
             </li>
           )
 
